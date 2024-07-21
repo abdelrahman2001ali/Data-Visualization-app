@@ -21,7 +21,6 @@ with st.sidebar:
 # Main content based on toggle button selection
 if selected == "Ground Station History Data":
 
-    show_Data = st.sidebar.checkbox('Show Data', value=True, key='show_Data')
 
     st.write("You selected Ground Station History Data")
     # Add your Task 1 related code here
@@ -54,40 +53,7 @@ if selected == "Ground Station History Data":
     # Filter Data based on Date and Time Range
     mask = (df1['Datetime'] >= start_datetime) & (df1['Datetime'] <= end_datetime)
     filtered_data = df1.loc[mask]
-
-    show_map = st.sidebar.checkbox('Show Map', value=True, key='Show map')
-    st.title("Interactive Map")
-
-    # Initialize the map
-    latitude, longitude = 29.035, 31.12
-    m = folium.Map(location=[latitude, longitude], zoom_start=10,
-                   width='600',
-                   height='500',
-                   control_scale=True
-                   )
-
-    # Add a marker with a popup and a tooltip
-    folium.Marker(
-        [latitude, longitude],
-        popup="Ground Station: North Egypt",
-        tooltip="Click for more info",
-        icon=folium.Icon(icon="info-sign")
-    ).add_to(m)
-
-    # Add draw tool
-    draw = Draw()
-    draw.add_to(m)
-
-    # Add measure tool
-    measure = MeasureControl()
-    measure.add_to(m)
-
-    # Add layer control
-    folium.LayerControl().add_to(m)
-
-    # Display the map
-    st_folium(m)
-
+    
     # Sidebar for plot customization
     st.sidebar.header('Plot Customization')
     # Display Data
@@ -159,13 +125,45 @@ if selected == "Ground Station History Data":
                                       file_name=f"plot.{export_format}", key='download_plot_button'):
             st.success(f"Plot downloaded as {export_format}.")
 
+    st.title("Interactive Map")
+
+    # Initialize the map
+    latitude, longitude = 29.035, 31.12
+    m = folium.Map(location=[latitude, longitude], zoom_start=10,
+                   width='600',
+                   height='500',
+                   control_scale=True
+                   )
+
+    # Add a marker with a popup and a tooltip
+    folium.Marker(
+        [latitude, longitude],
+        popup="Ground Station: North Egypt",
+        tooltip="Click for more info",
+        icon=folium.Icon(icon="info-sign")
+    ).add_to(m)
+
+    # Add draw tool
+    draw = Draw()
+    draw.add_to(m)
+
+    # Add measure tool
+    measure = MeasureControl()
+    measure.add_to(m)
+
+    # Add layer control
+    folium.LayerControl().add_to(m)
+
+    # Display the map
+    st_folium(m)
+
+
 
 
 
 
 
 elif selected == "Forcasting":
-    show_Forcasting = st.sidebar.checkbox('Show Forcasting', value=True, key='Show Forcasting')
     st.write("You selected Forcasting")
     # Add your Task 2 related code here
     df2 = pd.read_csv('Forecasting_actual_data.csv', parse_dates=['Datetime'])
