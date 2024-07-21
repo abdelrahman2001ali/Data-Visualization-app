@@ -55,6 +55,39 @@ if selected == "Ground Station History Data":
     mask = (df1['Datetime'] >= start_datetime) & (df1['Datetime'] <= end_datetime)
     filtered_data = df1.loc[mask]
 
+    show_map = st.sidebar.checkbox('Show Map', value=True, key='Show map')
+    st.title("Interactive Map")
+
+    # Initialize the map
+    latitude, longitude = 29.035, 31.12
+    m = folium.Map(location=[latitude, longitude], zoom_start=10,
+                   width='600',
+                   height='500',
+                   control_scale=True
+                   )
+
+    # Add a marker with a popup and a tooltip
+    folium.Marker(
+        [latitude, longitude],
+        popup="Ground Station: North Egypt",
+        tooltip="Click for more info",
+        icon=folium.Icon(icon="info-sign")
+    ).add_to(m)
+
+    # Add draw tool
+    draw = Draw()
+    draw.add_to(m)
+
+    # Add measure tool
+    measure = MeasureControl()
+    measure.add_to(m)
+
+    # Add layer control
+    folium.LayerControl().add_to(m)
+
+    # Display the map
+    st_folium(m)
+
     # Sidebar for plot customization
     st.sidebar.header('Plot Customization')
     # Display Data
@@ -127,38 +160,6 @@ if selected == "Ground Station History Data":
             st.success(f"Plot downloaded as {export_format}.")
 
 
-show_map = st.sidebar.checkbox('Show Map', value=True, key='Show map')
-st.title("Interactive Map")
-
-        # Initialize the map
-latitude, longitude = 29.035, 31.12
-m = folium.Map(location=[latitude, longitude], zoom_start=10,
-                       width='600',
-                       height='500',
-                       control_scale=True
-                       )
-
-        # Add a marker with a popup and a tooltip
-folium.Marker(
-            [latitude, longitude],
-            popup="Ground Station: North Egypt",
-            tooltip="Click for more info",
-            icon=folium.Icon(icon="info-sign")
-    ).add_to(m)
-
-        # Add draw tool
-draw = Draw()
-draw.add_to(m)
-
-        # Add measure tool
-measure = MeasureControl()
-measure.add_to(m)
-
-        # Add layer control
-folium.LayerControl().add_to(m)
-
-        # Display the map
-st_folium(m)
 
 
 
