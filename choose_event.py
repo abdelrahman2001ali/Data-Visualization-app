@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import matplotlib as plt
+import matplotlib.pyplot as plt
 import seaborn as sns
 from io import BytesIO
 from streamlit_option_menu import option_menu
@@ -22,7 +22,7 @@ with st.sidebar:
 if selected == "Ground Station History Data":
     st.write("You selected Ground Station History Data")
     # Add your Task 1 related code here
-    df1 = pd.read_csv('D:\graduation project\Data\AI file\Ground_data_after_processing.csv', parse_dates=['Datetime'])
+    df1 = pd.read_csv('Ground_data_after_processing.csv', parse_dates=['Datetime'])
     dataset1 = {
         'Ground Station Data': df1 }
     st.title('Ground Station Data Visualization Dashboard')
@@ -161,16 +161,17 @@ if selected == "Ground Station History Data":
 elif selected == "Forcasting":
     st.write("You selected Forcasting")
     # Add your Task 2 related code here
-    df2 = pd.read_csv('D:\graduation project\Data\AI file\Forecasting_actual_data.csv', parse_dates=['Datetime'])
+    df2 = pd.read_csv('Forecasting_actual_data.csv', parse_dates=['Datetime'])
     dataset2 = {
         'Forcasting': df2 }
     st.title('Forcasting Data Visualization Dashboard')
 
     # Path to images
     image_paths = {
-        'Forecasting': 'D:\graduation project\Data\AI file\Forecasting.PNG',
-        'ground_model_error_metrics': 'D:\graduation project\Data\AI file\ground_model_error_metrics.png',
-        'Performance Evaluation Metrics for Ground-Based Model': 'D:\graduation project\Data\AI file\Performance Evaluation Metrics for Ground-Based Model.png'
+        'Forecasting': 'Forecasting.PNG',
+        'ground_model_error_metrics': 'ground_model_error_metrics.png',
+        'Performance Evaluation Metrics for Ground-Based Model': 'Performance Evaluation Metrics for Ground-Based Model.png',
+        'Ground_accuracy': 'Ground_accuracy.png'
     }
 
     # Sidebar for date and time range selection
